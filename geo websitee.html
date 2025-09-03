@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toko Online Sederhana</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4f4f4; }
+    header { background: #333; color: #fff; padding: 15px; text-align: center; }
+    nav { background: #444; padding: 10px; text-align: center; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+    .container { padding: 20px; }
+    .produk { border: 1px solid #ddd; padding: 15px; margin: 10px; background: #fff; display: inline-block; width: 250px; vertical-align: top; }
+    button { padding: 8px 12px; margin-top: 10px; cursor: pointer; background: #333; color: #fff; border: none; }
+    button:hover { background: #555; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Toko Online Geo</h1>
+    <p>Owner: Berdand Geo  | WhatsApp: 0857-8897-8035 | Email: boygeo230@email.com</p>
+  </header>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#produk">Produk</a>
+    <a href="#keranjang">Keranjang</a>
+    <a href="#alamat">Alamat</a>
+    <a href="#tentang">Tentang Kami</a>
+  </nav>
+
+  <div class="container">
+    <!-- Home -->
+    <section id="home">
+      <h2>Selamat Datang di Toko Online Geo</h2>
+      <p>Pilih menu di atas untuk melihat produk, keranjang, atau informasi lainnya.</p>
+    </section>
+
+    <!-- Produk -->
+    <section id="produk" class="hidden">
+      <h2>Daftar Produk</h2>
+      <div class="produk">
+        <h3>Produk Ganci</h3>
+        <p>Deskripsi produk Ganci</p>
+        <button onclick="tambahKeranjang('Produk Ganci')">Tambah ke Keranjang</button>
+      </div>
+      <div class="produk">
+        <h3>Produk Stiker</h3>
+        <p>Deskripsi produk Stiker</p>
+        <button onclick="tambahKeranjang('Produk Stiker')">Tambah ke Keranjang</button>
+      </div>
+      <div class="produk">
+        <h3>Produk Poto Poloid</h3>
+        <p>Deskripsi produk Poto Poloid</p>
+        <button onclick="tambahKeranjang('Produk Poto Poloid')">Tambah ke Keranjang</button>
+      </div>
+    </section>
+
+    <!-- Keranjang -->
+    <section id="keranjang" class="hidden">
+      <h2>Keranjang Belanja</h2>
+      <ul id="listKeranjang"></ul>
+    </section>
+
+    <!-- Alamat -->
+    <section id="alamat" class="hidden">
+      <h2>Alamat Pembeli</h2>
+      <input type="text" id="alamatInput" placeholder="Masukkan alamat Anda">
+      <input type="text" id="alamatInput" placeholder
+        ="Masukkan nomor telepon anda">
+      <button onclick="simpanAlamat()">Simpan Alamat</button>
+      <p id="alamatTersimpan"></p>
+    </section>
+
+    <!-- Tentang -->
+    <section id="tentang" class="hidden">
+      <h2>Tentang Kami</h2>
+      <p>Kami adalah toko online yang menjual produk berkualitas dengan harga terjangkau.</p>
+    </section>
+  </div>
+
+  <script>
+    let keranjang = [];
+    let alamat = "";
+
+    function showPage() {
+      document.querySelectorAll("section").forEach(sec => sec.classList.add("hidden"));
+      let hash = window.location.hash.substring(1);
+      if (!hash) hash = "home";
+      document.getElementById(hash).classList.remove("hidden");
+    }
+
+    function tambahKeranjang(namaProduk) {
+      keranjang.push(namaProduk);
+      alert(namaProduk + " ditambahkan ke keranjang!");
+      updateKeranjang();
+    }
+
+    function updateKeranjang() {
+      let list = document.getElementById("listKeranjang");
+      list.innerHTML = "";
+      keranjang.forEach(item => {
+        let li = document.createElement("li");
+        li.textContent = item;
+        list.appendChild(li);
+      });
+    }
+
+    function simpanAlamat() {
+      alamat = document.getElementById("alamatInput").value;
+      document.getElementById("alamatTersimpan").textContent = "Alamat: " + alamat;
+      alert("Alamat berhasil disimpan!");
+    }
+
+    window.addEventListener("hashchange", showPage);
+    window.addEventListener("load", showPage);
+  </script>
+</body>
+</html>
